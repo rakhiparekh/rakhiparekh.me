@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rakhi Parekh Designs</title>
+    <meta charset="utf8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <!-- css-->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic">
+    <link rel="stylesheet" href="style.css">
+    <!-- js-->
+     <!--
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>-->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="3rd/fitvids.js"></script>
+  </head>
+  <body>
+    <div id="head">
+        <div class="waveheader">
+            <canvas id="canvas"></canvas>
+        </div><!--waveheader-->
+       <div id="logo">
+        <p><strong>Rakhi Parekh.</strong> Interaction Designer.</p> <a class="logoimg" href="index.html"></a>
+      </div>
+      <!-- /logo-->
+       <ol id="menu">
+        <li><a href="work-01.html">Featured</a></li>
+        <li><a href="work.html" class="onit">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="notebook.html">Notebook</a></li>
+      </ol>
+      <!-- /menu-->
+      <select id="menu-list-mobile">
+        <option>NAVIGATE&hellip;</option>
+        <option value="work.html">Work</option>
+        <option value="work-01.html">Featured</option>
+        <option value="about.html">About</option>
+        <option value="contact.html">Contact</option>
+        <option value="notebook.html">Notebook</option>
+      </select>
+      <!-- /menu-list-mobile-->
+     <!--  <div class="light sep"></div> -->
+    </div>
+    <!-- /head-->
+    <div id="main">
+      <div id="content" class="post">
+
+       <div class="scroll-to-top"><!--back to top button-->
+          <a href="#">Scroll to Top</a>
+       </div>
+
+        <h1>Usability Lab<span></span><br></h1>
+         <h2>Facilitator</h2>
+        <p>Over the past year, I volunteered at the Usability Lab at the Academy of Art University as a Facilitator. My role was to faciliate the testing of web/mobile applications between the designer and the user.</p>
+
+       <img src="images/work/work-04/testingphotos.001.jpg" alt="Usability Testing" />
+         
+      </div>
+      <!-- /content.post-->
+     <!--  <div class="sep light"></div> -->
+      <!-- <p class="social share"><a href="http://twitter.com/share" title="Share on Twitter">t</a></p> -->
+      <div class="foot sep"></div>
+      <d<div class="thumbs group">
+       <div class="col">
+          <!-- item: --><a href="work-01.html" class="item"><img src="images/thumb-1.jpg"> 
+            <h2>Projection Interface Design</br> 2014</h2></a>
+          <!-- item: --><a href="work-04.html" class="item"><img src="images/thumb-4.jpg">
+            <h2>Usability Testing Facilitator</br> 2013</h2></a>
+         
+        </div>
+        <!-- /col-->
+        <div class="col">
+          <!-- item: --><a href="work-02.html" class="item"><img src="images/thumb-2.jpg">
+            <h2>Mobile Application Design</br> 2013</h2></a>
+             <!-- item: --><a href="work-06.html" class="item"><img src="images/thumb-6.jpg">
+            <h2>Fashion Portfolio</br>2001-2010</h2></a>
+            
+         
+         
+        </div>
+        <!-- /col-->
+        <div class="col">
+          <!-- item: --><a href="work-03.html" class="item"><img src="images/thumb-3.jpg">
+            <h2>Mobile first responsive web-design</br> 2013</h2></a>
+            
+         
+    
+        </div>
+        <!-- /col-->
+      </div>
+      <!-- /thumbs-->
+    </div>
+    <!-- /main-->
+    <div id="foot">﻿
+       <div class="foot sep"></div>
+      <p class="l social">
+        <!-- social link: --><a href="http://twitter.com/stylemindsoul" target="_blank" title="Connect on twitter">t</a>
+        <!-- social link: --><a href="https://www.linkedin.com/in/parekhrakhi" target="_blank">i</a>
+        <!-- social link: --><a href="https://plus.google.com/+RakhiParekh" target="_blank">g</a>
+      </p>
+      <!-- /more social icon codes you will find in documentation-->
+      <p class="r">&copy; 2014 <a href="about.html">Designs by Rakhi Parekh</a></p>
+    </div>
+   <!--scroll  to top-->
+    <script type="text/javascript">
+          var $ =jQuery.noConflict();
+          $(document).ready(function () {
+          $('.scroll-to-top').hide();
+          //Check to see if the window is top if not then display button
+          $(window).scroll(function () {
+          if ($(this).scrollTop() > 200) {
+          $('.scroll-to-top').fadeIn();
+          } else {
+          $('.scroll-to-top').fadeOut();
+          }
+          });
+          //Click event to scroll to top
+          $('.scroll-to-top').click(function () {
+          $('html, body').animate({ scrollTop: 0 }, 800);
+          return false;
+          });
+          });
+    </script>
+
+    <!--header wave-->
+    <script src="headwave.js" type="text/javascript"></script>
+  </body>
+</html>

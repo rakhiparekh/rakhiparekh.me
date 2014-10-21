@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>goldenGatebridge</title>
+	<meta name="generator" content="BBEdit 10.1" />
+</head>
+<body>
+  
+  <canvas id='backgroundId' width="1024px" height= "768px" style="z-index:0 ; position : absolute; left : 0px; top = 0px;" ></canvas> 
+  <canvas id='canvasId' width="1024px" height= "768px" style="z-index:1000"></canvas> 
+  
+  <script type = "text/javascript">
+  
+      var canvas = document.getElementById('canvasId');
+      var context = canvas.getContext('2d');
+  
+      var canvas2 =document.getElementById ('backgroundId');
+      var context2 = canvas.getContext('2d');
+  
+      //draw pillars outer bigger rectangle
+   
+        function drawRectangle(x,y,width,heigth)
+        {   
+          context.beginPath();
+          context.rect(x,y,width,heigth);
+          context.closePath();
+      
+        } 
+     
+     //draw cross bars in the small pillar
+     
+       function drawDiagonalLines (X1,Y1,X2,Y2)
+       {
+        context.moveTo(X1,Y1);
+        context.lineTo(X2,Y2);
+        context.lineWidth=1;
+        context.strokeStyle = "#7D4B27";
+        context.stroke();
+       }
+         
+         
+      //draw the cross bars in the last rectangle of bigger pillar
+         
+        function drawCrossBars (startX,startY,X1,Y1,X2,Y2,endX,endY)
+         { 
+          context.beginPath();
+          context.moveTo (startX,startY);
+          context.lineTo (X1,Y1);
+          context.lineTo (X2,Y2);
+          context.lineTo (endX,endY);
+          context.closePath();
+          context.lineWidth=4;
+          context.strokeStyle="#7D4B27";
+          context.stroke();
+          context.fillStyle = "#914C1A";
+          context.fill();
+         }
+         
+     //draw  front long arc of the bridge-bezier curve
+     
+      function drawFrontPipes(startX, startY,controlX1, controlY1, controlX2,controlY2, endX, endY)
+       { 
+        context.beginPath();
+        context.moveTo(startX,startY);
+        context.bezierCurveTo(controlX1, controlY1, controlX2,controlY2, endX, endY);        
+        context.lineWidth = 12;
+        context.strokeStyle = "#914C1A"; // line color
+        context.stroke();
+        
+       }   
+     
+     //add gradient in rust
+     
+     function addLinearGradientRust(startX,startY,endX,endY)
+      {
+       var grd = context.createLinearGradient(startX,startY,endX,endY);
+       grd.addColorStop(0,"#A36336"); //light rust
+       grd.addColorStop(0.6,"#C73C00"); // bright rust
+       grd.addColorStop(1,"#331102"); // dark rust
+       context.fillStyle = grd;
+       context.fill();
+      }
+      
+      // draw the arcs of the bridge at the back 
+      
+      function drawQuadracticCurve (startX, startY,controlX, controlY, endX, endY)
+       {
+        context.beginPath();
+        context.moveTo(startX, startY);
+        context.quadraticCurveTo(controlX, controlY,endX,endY);       
+        context.lineWidth=7;
+        context.strokeStyle= "#804B26";
+        context.stroke();
+        }
+     
+     //draw the leafy branch
+     
+     function drawLeafBranch (x,y)
+      {                       
+        var imageObj = new Image();         
+        imageObj.onload = function() {             
+        context.drawImage(imageObj,x,y); 
+      };
+        imageObj.src="leaf-branch.png";               
+      }
+        
+      // draw shorter leafy branch
+        
+      function drawShorterLeafBranch (x,y)
+       {                       
+         var imageObj = new Image();         
+         imageObj.onload = function() {             
+         context.drawImage(imageObj,x,y); 
+       };
+         imageObj.src="leaf-branch left rotation.png";               
+       } 
+           
+       // draw smaller leafy branch
+       
+       function drawSmallerLeafBranch (x,y)
+       {                       
+        var imageObj = new Image();         
+        imageObj.onload = function() {             
+        context.drawImage(imageObj,x,y); 
+       };
+        imageObj.src="leaf-branch small.png";               
+       }
+     
+      // draw smallest leafy branch
+     
+      function drawSmallestLeafBranch (x,y)
+      {                       
+        var imageObj = new Image();         
+        imageObj.onload = function() {             
+        context.drawImage(imageObj,x,y); 
+      };
+        imageObj.src="leaf-branchsmallest.png";               
+      }
+     
+      // draw medium leafy branch
+      
+      function drawMediumLeafBranch (x,y)
+      {                       
+        var imageObj = new Image();         
+        imageObj.onload = function() {             
+        context.drawImage(imageObj,x,y); 
+      };
+       imageObj.src="leaf-branch copy.png";               
+      }
+     
+     // draw large leafy branch
+     
+     function drawLargeLeafBranch (x,y)
+     {                       
+       var imageObj = new Image();         
+       imageObj.onload = function() {             
+       context.drawImage(imageObj,x,y); 
+     };
+       imageObj.src="leaf-branch large copy.png";               
+     }
+     
+     // draw top large leafy branch
+     
+     function drawTopLargeLeafBranch (x,y)
+     {                       
+       var imageObj = new Image();         
+       imageObj.onload = function() {             
+       context.drawImage(imageObj,x,y); 
+     };
+       imageObj.src="leaf-branch large.png";               
+     }
+         
+     // draw branches of the tree
+     
+     function drawThickBranchOfTree(startX,startY,a,b,c,d,e,f,g,h,endX,endY)
+     {
+       context.beginPath();
+       context.moveTo(startX,startY);
+       context.lineTo(a,b);
+       context.lineTo(c,d);
+       context.lineTo(endX,endY);
+       context.closePath();
+       context.lineWidth= 8;
+       context.strokeStyleStyle= "#7D4B27";
+       context.stroke();
+     }
+         
+    //  draw bigger pillar using rectangles with background showing  
+      
+    function drawTrialWindow (x,y,width,heigth)
+    {
+     context.globalAlpha= 0.1;
+     context.beginPath ();
+     context.rect(x,y,width,heigth);
+     context.closePath();
+     context.fillStyle= "white";
+     context.fill();
+     context.globalAlpha = 1; 
+     context.lineWidth = 28;
+     context. strokeStyle = "#BF5824";    
+     context.stroke();
+    }
+         
+    // trial draw rectangle for the back pillar with background showing  
+           
+    function drawBackPillar (x,y,width,heigth)
+    {
+      context.globalAlpha= 0.1;
+      context.beginPath ();
+      context.rect(x,y,width,heigth);
+      context.closePath();
+      context.fillStyle= "white";
+      context.fill();
+      context.globalAlpha = 1; 
+      context.lineWidth = 10;
+      context. strokeStyle = "#BF5824";    
+      context.stroke();
+    }
+         
+    //draw the edge of the road
+    
+    function drawRoadBoundary(startX,startY,x1,y1,x2,y2,endx,endy)
+    {
+      context.beginPath();
+      context.moveTo(startX,startY);
+      context.lineTo(x1,y1);
+      context.lineTo(x2,y2);
+      context.lineTo(endx,endy);
+      context.closePath();
+      context.fillStyle="#804B26";
+      context.fill();
+   }
+      
+     // draw ropes of the bridge 
+       
+      function drawRopes (x1,y1,x2,y2)
+      {
+        context.moveTo(x1,y1);
+        context.lineTo(x2,y2);
+        context.lineWidth=6;
+        context.strokeStyle="#78370C";
+        context.stroke ();
+      }
+                 
+     
+     //draw sunset background
+    
+       var imageObj = new Image();
+       
+       imageObj.onload = function()
+       {
+         context.drawImage (imageObj,0,0);// draw background image
+         
+         drawBackPillar (197,230,33,36);// window for smaller pillar
+        
+         drawBackPillar (197, 271,33,36); // window for smaller pillar 
+       
+         drawQuadracticCurve (374,75,278,410,198,230);// arch at the back of bridge towards the front of canvas              
+     
+         drawRectangle (310,645,232,95); // draw  bigger base rectangle of the bigger pillar
+         addLinearGradientRust (305,645,475,725);  // add linear gradient to the rectangle   
+                 
+         drawQuadracticCurve (464,75,298,416,228,230);// arch at the back of bridge towards the back of canvas
+          
+        //draw road parallelogram-road - behind the big pillar
+       
+         context.beginPath();
+         context.moveTo (197,286);
+         context.lineTo (228,286);
+         context.lineTo (460,411);
+         context.lineTo (365,411);
+         context.closePath();
+         context.fillStyle = "#1A1718";
+         context.fill()
+         
+                 
+       
+         drawRopes(432,135,419,380);// first from the centre in the back between the small and big pillar
+
+         drawRopes(388,211,385,366);// second from the centre in the back between the small and big pillar
+                
+         drawTrialWindow (370,60,110,135); //  draw bigger pillar using rectangles with background showing  
+         
+         drawTrialWindow (370,192,110,135);  //  draw bigger pillar using rectangles with background showing  
+     
+         drawTrialWindow (370,355,110,135);  //  draw bigger pillar using rectangles with background showing  
+         
+         drawTrialWindow (370,510,110,135);  //  draw bigger pillar using rectangles with background showing  
+        
+          // draw the road boundary      
+         drawRoadBoundary (360,393,360,417,196,299,196,285);//back of the canvas towards the viewer
+      
+         drawRoadBoundary(358,393,360,417,798,824,848,768);// front of the canvas towards the viewer         
+     
+         drawRoadBoundary (390,375,393,380,1027,718,1044,685);//front of the canvas away from the viewer       
+         
+         
+       //draw road parallelogram-road - front of canvas
+       
+         context.beginPath();
+         context.moveTo (1048,985);
+         context.lineTo (380,411);
+         context.lineTo (466,411);
+         context.lineTo (1033,710);
+         context.closePath();
+       
+      //add linear gradient to the road- grey
+    
+       var grd = context.createLinearGradient (461,471,920,706);
+       grd.addColorStop(0, "#2E2D2D" ); // darkest grey
+       grd.addColorStop(0.3, "#474244" ); // dark grey
+       grd.addColorStop(0.7, "#857E81" ); // light grey
+       context.fillStyle = grd;
+       context.fill();
+       
+              
+       
+      drawRopes(349,259,349,341);// third from the centre in the back between the small and big pillar
+     
+      drawRopes(325,282,324,330);// fourth from the centre in the back between the small and big pillar
+     
+      drawRopes(297,293,299,317);// fifth from the centre in the back between the small and big pillar
+     
+      drawRopes(274,294,274,306);// sixth from the centre in the back between the small and big pillar
+         
+      drawRopes(247,266,247,292);// seventh from the centre in the back between the small and big pillar
+     
+      drawRopes(228,233,229,277);// eighth from the centre in the back between the small and big pillar
+                    
+      drawRopes(345,165,332,386);// first from the centre in the front between the small and big pillar
+             
+      drawRopes(319,227,307,368);// second from the centre in the front between the small and big pillar
+      
+      drawRopes(289,272,283,351);// third from the centre in the front between the small and big pillar
+      
+      drawRopes(261,292,256,336);//fourth from the centre in the front between the small and big pillar
+      
+      drawRopes(234,287,231,315);//fifth from the centre in the front between the small and big pillar
+      
+      drawRopes(212,266,212,299);// sixth from the centre in the front between the small and big pillar
+      
+      drawRopes(200,232,198,292);// seventh from the centre in the front between the small and big pillar
+      
+      drawRopes(376,70,363,413);// first from the centre in the front starting at bigger pillar
+      
+      drawRopes(407,135,397,443);//second from the centre in the front starting at bigger pillar
+      
+      drawRopes(446,195,438,480);//third from the centre in the front starting at bigger pillar
+      
+      drawRectangle (475,244,7,275); // first vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (476,205,479,205);
+   
+      drawRectangle (505,278,7,264); // second vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (505,282,507,282);        
+      
+      drawRectangle (535,312,7,255); // third vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (536,330,539,330);
+        
+      drawRectangle (565,345,7,252); // fourth vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (566,358,569,358);
+         
+      drawRectangle (595,375,7,242); // fifth vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (596,392,599,392);
+      
+      drawRectangle (625,400,7,252); // sixth vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (626,402,629,402);
+              
+      drawRectangle (655,430,7,249); // seventh vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (656,440,659,440);
+        
+      drawRectangle (685,457,7,242); // eighth vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (686,469,689,469);
+       
+      drawRectangle (719,485,7,242); // ninth vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (720,496,724,496);
+       
+      drawRectangle (753,510,7,249); // tenth vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (754,518,757,518);
+       
+      drawRectangle (787,535,7,239); // eleventh vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (788,548,790,548);
+       
+      drawRectangle (822,557,7,229); // twelfth vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (823,565,826,565);
+       
+      drawRectangle (863,582,7,225); // thirteenth vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (864,589,867,589);
+       
+      drawRectangle (903,603,7,233); // fourteenth vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (903,612,906,612);
+       
+      drawRectangle (940,624,7,233); // fifteenth vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (940,612,942,612);
+       
+      drawRectangle (980,640,7,216); // sixteenth vertical rope from the bigger column starting at the top of the canvas
+      addLinearGradientRust (976,612,979,612);
+       
+      drawRectangle (465,95,5,316); // first vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (466,99,469,99);
+       
+      drawRectangle (494,130,5,295); // second vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (490,135,492,135);
+      
+      drawRectangle (521,159,5,287); // third vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (521,159,523,159);
+       
+      drawRectangle (553,193,5,267); // fourth vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (553,190,555,190);
+       
+      drawRectangle (584,224,5,252); // fifth vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (584,219,586,219);
+       
+      drawRectangle (614,254,5,239); // sixth vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (614,249,616,249);
+       
+      drawRectangle (644,284,5,221); // seventh vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (644,289,646,289);
+       
+      drawRectangle (675,314,5,211); // eighth vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (675,314,678,314); 
+       
+      drawRectangle (705,339,5,205); // ninth vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (705,334,708,334); 
+      
+      drawRectangle (738,364,5,202); // ninth vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (738,380,740,380); 
+       
+      drawRectangle (772,389,5,194); // tenth vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (772,389,774,389); 
+       
+      drawRectangle (806,408,5,190); // eleventh vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (806,415,808,415); 
+       
+      drawRectangle (842,426,5,190); // twelfth vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (842,428,844,428); 
+       
+      drawRectangle (884,448,5,190); // thirteenth vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (884,444,886,444); 
+       
+      drawRectangle (924,466,5,192); // fourteenth vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (924,468,927,468); 
+       
+      drawRectangle (961,486,5,192); // fifteenth vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (962,486,964,486); 
+       
+      drawRectangle (1006,506,5,198); // sixteenth vertical rope from the backend bigger column starting at the top of the canvas
+      addLinearGradientRust (1006,506,1008,506); 
+      
+      drawRoadBoundary (225,281,225,284,354,355,354,344);//back of the canvas away from the viewer
+         
+           
+      drawLeafBranch (52,346); // draw leaf-branch.png 
+    
+      drawLeafBranch (33,486); // draw leaf-branch.png 
+         
+      drawShorterLeafBranch (1,455); // draw leaf-branch left rotation.png
+      
+      drawShorterLeafBranch (0,542); // draw leaf-branch left rotation.png
+      
+      drawShorterLeafBranch (20,442); // draw leaf-branch left rotation.png
+      
+      drawShorterLeafBranch (0,402); // draw leaf-branch left rotation.png
+          
+      drawSmallerLeafBranch(75,458); // draw leaf-branch small.png
+      
+      drawSmallerLeafBranch (43,558); // draw leaf-branch small.png
+       
+      drawSmallestLeafBranch (0,500); // draw leaf-branchsmallest.png
+       
+      drawMediumLeafBranch (0,489); // draw leaf-branch copy.png 
+             
+      drawLargeLeafBranch (-25,502); //draw leaf-branch large copy.png
+
+      drawTopLargeLeafBranch (-77,357); // draw leaf-branch large.png
+          
+     //draw branch1
+         
+      drawThickBranchOfTree (1,560,88,525,152,503,1,566);
+      
+      drawThickBranchOfTree (0,536,57,425,44,379,6,539);
+      
+      drawThickBranchOfTree (20,406,32,476,28,459,23,512);
+      
+      drawThickBranchOfTree (1,590,88,625,134,603,1,596);
+      
+      drawThickBranchOfTree (68,656,32,576,35,559,23,512); 
+      
+         
+      
+      //draw triangles on top of the back column
+       
+        context.beginPath();
+        context.moveTo(236,226); //back
+        context.lineTo(230,214);
+        context.lineTo(224,226);
+        context.closePath();
+        context.fillstyle= "#BF5824";
+        context.fill();
+       
+       //draw triangles on top of the back column
+       
+        context.beginPath();
+        context.moveTo(192,226); //front
+        context.lineTo(198,214);
+        context.lineTo(204,226);
+        context.closePath();
+        context.fillstyle= "#BF5824";
+        context.fill();
+       
+      //draw triangles on top of the front column
+       
+        context.beginPath();
+        context.moveTo(354,47);//front
+        context.lineTo(371,20);
+        context.lineTo(390,47);
+        context.closePath();
+        context.fillstyle= "#BF5824";
+        context.fill();
+       
+       //draw triangles on top of the front column
+       
+       context.beginPath();
+       context.moveTo(460,48);//back
+       context.lineTo(477,20);
+       context.lineTo(496,48);
+       context.closePath();
+       context.fillstyle= "#BF5824";
+       context.fill();     
+              
+       drawFrontPipes ( 375,68, 497,319,776,566,1024,653); //in the front longer pipe   
+        
+       drawFrontPipes (462,68, 597, 298,876, 463,1024,510); //pipe at the back in the front
+      
+      //draw - right of canvas base rectangle for the bigger column
+       
+       drawRectangle (455,638,45,38);
+       addLinearGradientRust (444,605,457,615);
+        
+      //draw - left of canvas base rectangle for the bigger column
+         
+       drawRectangle (355,638,45,38); 
+       addLinearGradientRust (394,638,347,658);                                       
+
+       }  ;                 
+          imageObj.src ="sunset3.png";// draw background image
+          
+         
+         //LOOPS I WROTE BUT COULDN'T APPYL TO THE DRAWING DUE TO THE NATURE OF THE DRAWING.
+         
+          /*
+          
+                  
+     
+        // loop to draw rectangles within the smaller pillar
+        
+           var valueSX = 189;
+           var valueSY = 168;
+           var SX1= 219;
+           var SY1 = 168;
+           var SX2 = 219;
+           var SY2= 190;
+           var SX3= 189;
+           var SY3 = 190;
+           var endSX= 189;
+           var endSY= 168;
+     
+           for (index=0;index < 5;index=index+1){
+                  
+         drawColumnGaps (valueSX,valueSY,SX1,SY1,SX2,SY2,SX3,SY3,endSX,endSY) // draw rectangles in smaller column
+      
+         valueSY= valueSY+45;
+         SY1 = SY1 +45;
+         SY2 = SY2 +45;
+         SY3 = SY3 +45;
+         endSY = endSY +45;
+         }  
+     
+   */
+    
+  
+       
+       </script>  
+  
+</body>
+</html>
