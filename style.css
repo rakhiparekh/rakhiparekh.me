@@ -370,12 +370,16 @@ blockquote {
   font-size: 0;
   line-height: 0;
 }
+
+
+
 .thumbs .col .item {
   display: block;
   font-style: normal;
   position: relative;
   text-decoration: none;
   text-transform: uppercase;
+  border: 1px solid #d8d8d8;
 }
 .thumbs .col .item img {
  /* opacity: 0.9;*/
