@@ -35,7 +35,7 @@ body {
 }
 #logo{
  /* height:200px;*/
-  padding-top:100px;
+  padding-top:70px;
 }
 a.home:hover
 {
@@ -86,6 +86,8 @@ img {
   color: #2a2322;
 }
 #logo p {
+  position: relative;
+  top: 650px;
   margin: 21px 0;
   line-height: 42px;
 }

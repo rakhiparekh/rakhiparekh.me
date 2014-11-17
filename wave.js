@@ -1,7 +1,7 @@
 var canvas = document.getElementById( "canvas" );
 var size = {
     width: window.innerWidth,
-    height: window.innerHeight
+    height: window.innerHeight,
 };
 
 window.requestAnimtionFrame =
